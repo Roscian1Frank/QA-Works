@@ -27,7 +27,6 @@ public class WebTestBase extends WebCommonAction{
 	@Before
 
 	public void startApp() throws IOException, ParseException{
-			//DesiredCapabilities dc = new DesiredCapabilities();
 			System.setProperty("webdriver.chrome.driver", chromeDriverMacPath);
 			driver = new ChromeDriver();
 			Point targetPosition = new Point(0, 0);

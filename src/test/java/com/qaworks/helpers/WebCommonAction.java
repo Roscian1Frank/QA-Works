@@ -28,4 +28,23 @@ public class WebCommonAction {
         }
 
     }
+    public boolean waitForAlertAndAcceptAlert(WebDriver driver,int time) throws InterruptedException {
+        int i=0;
+        while(i++<time)
+        {
+            try
+            {
+                Alert alert = driver.switchTo().alert();
+                alert.accept();
+                driver.switchTo().defaultContent();
+                return true;
+            }
+            catch(NoAlertPresentException e)
+            {
+                Thread.sleep(1000);
+                continue;
+            }
+        }
+        return false;
+    }
 }

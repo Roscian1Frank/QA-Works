@@ -3,6 +3,8 @@ package com.qaworks.Web.pages;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 public class Contact_page {
     @FindBy(id = "ctl00_MainContent_NameBox")
     public static WebElement name_input_box;
@@ -18,4 +20,7 @@ public class Contact_page {
 
     @FindBy(xpath = "//h1")
     public static WebElement serverError;
+
+    @FindBy(xpath = "//*[contains(@id,'ctl00_MainContent_rfv')]")
+    public static List<WebElement> errorMessage;
 }

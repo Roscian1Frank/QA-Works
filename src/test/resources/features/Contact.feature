@@ -13,10 +13,18 @@ Feature:
     And I confirm message is sent
     And I am not receiving any confirmation message
 
-  Scenario: Valid Submission
+  Scenario: Invalid Submission
     Given I am on the QAWorks Site
     Then I should be able to contact QAWorks with the following information
       | name    | j.Bloggs                                  |
       | email   | j.Bloggs                                  |
       | message | please contact me I want to find out more |
     And I got server error
+
+  Scenario: Confirm error message
+    Given I am on the QAWorks Site
+    Then I should be able to contact QAWorks with the following information
+      | name    |  |
+      | email   |  |
+      | message |  |
+    And I check correct error message is displayed

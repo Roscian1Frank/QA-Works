@@ -5,13 +5,18 @@ import com.qaworks.Web.pages.Contact_page;
 import com.qaworks.helpers.Constants;
 import com.qaworks.helpers.Log;
 import com.qaworks.helpers.WebCommonAction;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import org.junit.Assert;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.qaworks.steps.WebTestBase.driver;
 
@@ -62,7 +67,7 @@ public class Contact_steps extends WebCommonAction {
 
     @And("^I got server error$")
     public void iGotServerError() throws Throwable {
-        Assert.assertFalse("We need to resolve 500 server error", Constants.SERVER_ERROR.equalsIgnoreCase(Contact_page.serverError.getText()));
+        Assert.assertFalse("We need to resolve 500 server error,When email is in format", Constants.SERVER_ERROR.equalsIgnoreCase(Contact_page.serverError.getText()));
         Log.info("500 server error");
     }
 
@@ -72,5 +77,13 @@ public class Contact_steps extends WebCommonAction {
         Assert.assertTrue("Not able to message", Contact_page.email_input_box.getText().isEmpty());
         Assert.assertTrue("Not able to message", Contact_page.message_input_box.getText().isEmpty());
         Log.info("Message send successfully");
+    }
+
+    @And("^I check correct error message is displayed$")
+    public void iCheckCorrectErrorMessageIsDisplayed() throws Throwable {
+        ArrayList<String> webArray = new ArrayList<>();
+        webArray.addAll(Contact_page.errorMessage.stream().map(WebElement::getText).collect(Collectors.toList()));
+        Assert.assertTrue("Correct error message is not displayed", webArray.containsAll(Arrays.asList(Constants.listOfErrors)));
+        Log.info("Error message confirmed");
     }
 }
